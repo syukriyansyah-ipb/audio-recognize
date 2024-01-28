@@ -42,7 +42,7 @@ def main():
             st.audio(uploaded_file, format="audio/wav")
         else:
             st.markdown("Audio contoh:")
-            audio_data = "audio-tes.wav"
+            audio_data = "contoh.wav"
             st.audio(audio_data, format="audio/wav")
 
 
@@ -53,24 +53,43 @@ def main():
 
     st.markdown("\n")
     # Tombol untuk memulai proses konversi
-    if st.button("Konversi", type="primary", use_container_width=True) and uploaded_file is not None:
-        # Tampilkan animasi loading
-        with st.spinner("Sedang mengonversi audio..."):
-            # Konversi audio ke teks
-            result_text = convert_audio_to_text(uploaded_file, language_options[selected_language])
+    if st.button("Konversi", type="primary", use_container_width=True):
+        if uploaded_file is not None:
+            # Tampilkan animasi loading
+            with st.spinner("Sedang mengonversi audio..."):
+                # Konversi audio ke teks
+                result_text = convert_audio_to_text(uploaded_file, language_options[selected_language])
 
-            # Tampilkan hasil teks
-            st.subheader("Hasil Konversi Teks:")
-            st.write(result_text)
+                # Tampilkan hasil teks
+                st.subheader("Hasil Konversi Teks:")
+                st.write(result_text)
 
-            # Tampilkan tombol download untuk hasil teks
-            st.subheader("Download Hasil Teks")
-            st.download_button(
-                label="Download Teks",
-                data=result_text,
-                file_name="hasil_teks.txt",
-                key="download_button",
-            )
+                # Tampilkan tombol download untuk hasil teks
+                st.subheader("Download Hasil Teks")
+                st.download_button(
+                    label="Download Teks",
+                    data=result_text,
+                    file_name="hasil_teks.txt",
+                    key="download_button",
+                )
+        else:
+            # Tampilkan animasi loading
+            with st.spinner("Sedang mengonversi audio..."):
+                # Konversi audio ke teks
+                result_text = convert_audio_to_text(audio_data, language_options[selected_language])
+
+                # Tampilkan hasil teks
+                st.subheader("Hasil Konversi Teks:")
+                st.write(result_text)
+
+                # Tampilkan tombol download untuk hasil teks
+                st.subheader("Download Hasil Teks")
+                st.download_button(
+                    label="Download Teks",
+                    data=result_text,
+                    file_name="hasil_teks.txt",
+                    key="download_button",
+                )
 
 if __name__ == "__main__":
     main()
